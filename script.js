@@ -33,5 +33,17 @@ const Advance = function move(Pos,ID){
         alert('You cannot claim this space.')
     }
 }
-return {gameReset, showBoard, Advance};
+
+const startGame = function start(){
+    const gamebuttons = document.querySelectorAll('.square');
+
+    gamebuttons.forEach(function(square){
+        square.addEventListener('click', function(e){
+            Pos = e.target.id;
+            console.log(Pos);
+            return {Pos}
+        });
+    });
+}
+return {gameReset, showBoard, Advance, startGame};
 })();

@@ -1,0 +1,23 @@
+
+body{
+    height:100vh;
+}
+
+
+.gamecontainer{
+    width: 640px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    background-color: black;
+    gap:20px;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.square{
+    width: 200px;
+    height: 200px;
+    background-color: wheat;
+}
