@@ -21,3 +21,11 @@ body{
     height: 200px;
     background-color: wheat;
 }
+
+.X{
+    background-color: blue;
+}
+
+.O{
+    background-color: red;
+}
