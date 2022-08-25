@@ -48,7 +48,7 @@ const gameReset = function Reset(){
         square.classList.remove('O');
     });
 
-return gameboard =  [0,0,0,
+return gameboard =      [0,0,0,
                         0,0,0,
                         0,0,0];
 
@@ -60,12 +60,15 @@ const showBoard = function show(){
     return Pscore;
 };
 
+let canmove = false;
 
 const Advance = function move(Pos,ID){
     Posit = Pos -1;
     if (gameboard[Posit] === 0){
     gameboard.splice(Posit,1,ID);
+    canmove = true;
     } else{
+        canmove = false;
         alert('You cannot claim this space.')
     };
 };
@@ -78,13 +81,21 @@ const startGame = function start(){
             Pos = e.target.id;
             ID = 1;
             Advance(Pos,ID);
-            if (ID ===1) {
+            if (ID ===1 && canmove === true) {
                 square.classList.add('X');
-            } else{
+                if( gameboard === [0,0,0,0,0,0,0,0,0]){
+                    return null;
+                } else {
+                cpAdvance();
+                }
+            } else if(ID === -1 && canmove === true){
                 square.classList.add('O');
+            } else{
+                return;
             }
             console.log(Pos);
             winstates();
+            
         });
     });
 };
