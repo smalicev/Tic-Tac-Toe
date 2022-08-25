@@ -102,15 +102,16 @@ const startGame = function start(){
 
 const cpAdvance = function compPlay(){
     Pos = Math.round(Math.random()*9);
-    console.log(Pos);
     Advance(Pos,-1);
+    
     const aisquare = document.getElementById(Pos);
-    console.log(aisquare);
     ID = - 1;
-    if (ID ===1) {
+    if (ID ===1 && canmove === true) {
         aisquare.classList.add('X');
-    } else{
+    } else if (ID ===-1 && canmove === true) {
         aisquare.classList.add('O');
+    } else{
+        return;
     }
     };
 
