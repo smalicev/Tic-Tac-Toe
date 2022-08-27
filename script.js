@@ -32,7 +32,18 @@ let winstates = function winif(){
     gameboard[2] + gameboard[4] + gameboard[6] ===-3){
         gameReset();
         return Cscore = Cscore -1;
-    } else{
+    } else if( gameboard[0] !=0 &&
+        gameboard[1] !=0 && 
+        gameboard[2] !=0 && 
+        gameboard[3] !=0 && 
+        gameboard[4] !=0 && 
+        gameboard[5] !=0 && 
+        gameboard[6] !=0 && 
+        gameboard[7] !=0 && 
+        gameboard[8] !=0){
+        gameReset();
+        return alert("Draw!")
+    } else {
         return null;
     };
    };
@@ -63,13 +74,14 @@ const showBoard = function show(){
 let canmove = false;
 
 const Advance = function move(Pos,ID){
-    Posit = Pos -1;
-    if (gameboard[Posit] === 0){
-    gameboard.splice(Posit,1,ID);
+    if (gameboard[Pos] === 0){
+    gameboard.splice(Pos,1,ID);
     canmove = true;
-    } else{
+    } else if (gameboard[Pos] != 0){
         canmove = false;
         alert('You cannot claim this space.')
+    } else{
+        return
     };
 };
 
@@ -81,6 +93,7 @@ const startGame = function start(){
             Pos = e.target.id;
             ID = 1;
             Advance(Pos,ID);
+            console.log(gameboard);
             if (ID ===1 && canmove === true) {
                 square.classList.add('X');
                 if( gameboard === [0,0,0,0,0,0,0,0,0]){
@@ -93,7 +106,6 @@ const startGame = function start(){
             } else{
                 return;
             }
-            console.log(Pos);
             winstates();
             
         });
@@ -101,19 +113,36 @@ const startGame = function start(){
 };
 
 const cpAdvance = function compPlay(){
-    Pos = Math.round(Math.random()*9);
-    Advance(Pos,-1);
-    
-    const aisquare = document.getElementById(Pos);
-    ID = - 1;
-    if (ID ===1 && canmove === true) {
-        aisquare.classList.add('X');
-    } else if (ID ===-1 && canmove === true) {
-        aisquare.classList.add('O');
-    } else{
-        return;
+    function getAllIndexes(arr, val) {
+        var indexes = [], i = -1;
+        while ((i = arr.indexOf(val, i+1)) != -1){
+            indexes.push(i);
+        }
+        return indexes;
     }
+    console.log(gameboard)
+    let indexes = getAllIndexes(gameboard, 0);
+    zerlen = indexes.length;
+    console.log(zerlen);
+    console.log(indexes);
+    Pos = indexes[Math.round(Math.random()*(zerlen-1))];
+    console.log(Pos)
+    if (Pos === undefined){
+        return null;
+    }else {
+        ID = - 1;
+        Advance(Pos,ID);
+        console.log(Pos);
+        const aisquare = document.getElementById(Pos);
+        if (ID ===1 && canmove === true) {
+            aisquare.classList.add('X');
+        } else if (ID ===-1 && canmove === true) {
+            aisquare.classList.add('O');
+        } else{
+            return;
     };
+    };
+};
 
 return {gameReset, showBoard, Advance, startGame, cpAdvance, winstates};
 })();
